@@ -1,16 +1,60 @@
-export const App = () => {
-  return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
-  );
-};
+import { Component } from 'react';
+import { ContactList } from './ContactList';
+import { ContactForm } from './ContactForm';
+import { Filter } from './Filter';
+import { nanoid } from 'nanoid';
+import Notiflix, { Notify } from 'notiflix';
+
+
+export class App extends Component {
+   state = {
+  contacts: [
+    {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
+    {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
+    {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
+    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
+  ],
+  filter: '',
+  };
+
+  addToContact = values => {
+    const { contacts } = this.state;
+    const { name, number } = values;
+
+    if (contacts.some(contact => contact.name === name)) {
+      return Notiflix.Notify.info(`${name} is already in contacts!`)
+    }
+
+    this.setState(() => ({
+      contacts: [...contacts, { name: name, id: nanoid(), number: number }],
+    }));
+  };
+
+  deleteFromContact = id => {
+    this.setState(prevState => ({
+    contacts: prevState.contacts.filter(contact => contact.id !== id),
+  }))
+  }
+  
+  filtring = e => {
+    this.setState({filter: e.currentTarget.value.toLowerCase().trim()})
+  }
+
+  render() {
+    const { contacts } = this.state;
+    const filtringContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(this.state.filter)
+    );
+    
+    return (
+      <div>
+        <h1>Phonebook</h1>
+        <ContactForm onSubmit={this.addToContact}></ContactForm>
+
+        <h2>Contacts</h2>
+        <Filter filtring={this.filtring} />
+        <ContactList filtringContacts={filtringContacts} onDelete={this.deleteFromContact}></ContactList>
+      </div>
+    );
+  }
+}
