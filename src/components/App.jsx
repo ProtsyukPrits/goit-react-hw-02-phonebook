@@ -3,7 +3,7 @@ import { ContactList } from './ContactList';
 import { ContactForm } from './ContactForm';
 import { Filter } from './Filter';
 import { nanoid } from 'nanoid';
-import Notiflix, { Notify } from 'notiflix';
+import Notiflix from 'notiflix';
 
 
 export class App extends Component {

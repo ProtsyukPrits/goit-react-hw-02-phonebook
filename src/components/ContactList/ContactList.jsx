@@ -1,5 +1,5 @@
 import { ContactEl } from 'components/ContactEl';
-import { PropTypes } from 'prop-types';
+
 
 export const ContactList = ({ onDelete, filtringContacts }) => {
   return (
