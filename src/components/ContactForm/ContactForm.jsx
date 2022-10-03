@@ -1,5 +1,5 @@
-
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { FormList, Label, Input, Button } from './ContactForm.styled';
+import { Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 
 const initialValues = {
@@ -35,27 +35,29 @@ export const ContactForm = ({ onSubmit }) => {
     onSubmit(value);
   };
 
+
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
       validationSchema={schema}
     >
-      <Form autoComplete="off">
-        <label htmlFor="name">
-          Name:
-          <Field type="text" name="name" />
-          <ErrorMessage name="name" component="div" />
-        </label>
+      
+        <FormList autoComplete="off">
+          <Label htmlFor="name">
+            Name:
+            <Field type="text" name="name" as={Input} />
+            <ErrorMessage name="name" component="div" />
+          </Label>
 
-        <label htmlFor='number'>
-          Number:
-          <Field type="tel" name="number" />
-          <ErrorMessage name="number" component="div" />
-        </label>
+          <Label htmlFor="number">
+            Number:
+            <Field type="tel" name="number" as={Input} />
+            <ErrorMessage name="number" component="div" />
+          </Label>
 
-        <button type="submit">Add contacts</button>
-      </Form>
+          <Button type="submit">Add contacts</Button>
+        </FormList>
     </Formik>
   );
 };

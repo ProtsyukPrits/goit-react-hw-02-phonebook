@@ -1,15 +1,16 @@
-
-export const ContactEl = ({ onDelete, contact}) => {
+import { Button, ListEl } from './ContactEl.styled';
+export const ContactEl = ({ onDelete, contact }) => {
   return (
-    <li>
+    <ListEl>
       {contact.name} : {contact.number}
-      <div>
-        <button type="button" onClick={() => {
-          onDelete(contact.id)
-        }}>
-      Delete
-        </button>
-      </div>
-    </li>
-  )
-}
+      <Button
+        type="button"
+        onClick={() => {
+          onDelete(contact.id);
+        }}
+      >
+        Delete
+      </Button>
+    </ListEl>
+  );
+};
