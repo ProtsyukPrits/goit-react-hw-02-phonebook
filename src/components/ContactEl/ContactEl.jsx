@@ -1,3 +1,4 @@
+import { PropTypes} from 'prop-types'
 import { Button, ListEl } from './ContactEl.styled';
 export const ContactEl = ({ onDelete, contact }) => {
   return (
@@ -13,4 +14,10 @@ export const ContactEl = ({ onDelete, contact }) => {
       </Button>
     </ListEl>
   );
+};
+
+
+ContactEl.propTypes = {
+  contact: PropTypes.objectOf(PropTypes.string).isRequired,
+  onDelete: PropTypes.func.isRequired,
 };

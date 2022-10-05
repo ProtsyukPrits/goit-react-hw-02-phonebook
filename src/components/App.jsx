@@ -1,10 +1,12 @@
 import { Component } from 'react';
 import { ContactList } from './ContactList';
 import { ContactForm } from './ContactForm';
-import { ContactContainer} from './App.styled';
+import { ContactContainer } from './App.styled';
 import { Filter } from './Filter';
 import { nanoid } from 'nanoid';
 import Notiflix from 'notiflix';
+
+const LS_KEY = 'phonebook_contacts';
 
 export class App extends Component {
   state = {
@@ -15,7 +17,33 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
+    inProgress: false,
   };
+
+  // ++++++
+  componentDidMount() {
+    console.log('Create');
+
+    const contacts = localStorage.getItem(LS_KEY);
+    const parseContacts = JSON.parse(contacts);
+
+    if (parseContacts) {
+      this.setState({ contacts: parseContacts });
+    }
+  }
+  // \\\\\\\\\\
+  componentDidUpdate(prevState) {
+    if (this.state.contacts !== prevState.contact) {
+      localStorage.setItem(LS_KEY, JSON.stringify(this.state.contacts));
+    }
+    console.log('Upd')
+  }
+  // -----------
+  componentWillUnmount() {
+    // console.log('Delete');
+  }
+
+  // handl......
 
   addToContact = values => {
     const { contacts } = this.state;
